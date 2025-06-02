@@ -1,12 +1,32 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, HostListener, OnInit, signal } from '@angular/core';
+import { Sidebar } from './sidebar/sidebar';
+import { Main } from './main/main';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [Sidebar, Main, CommonModule],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
-export class App {
-  protected title = 'my-first-perpustakaan-mekar-app';
+export class App implements OnInit {
+  isSidebarCollapsed = signal<boolean>(false);
+  screenWidth = signal<number>(window.innerWidth);
+
+  @HostListener('window:resize')
+  onResize() {
+    this.screenWidth.set(window.innerWidth);
+    if (this.screenWidth() < 768) {
+      this.isSidebarCollapsed.set(true);
+    }
+  }
+
+  ngOnInit(): void {
+    this.isSidebarCollapsed.set(this.screenWidth() < 768);
+  }
+
+  changeIsSidebarCollapsed(isSidebarCollapsed: boolean): void {
+    this.isSidebarCollapsed.set(isSidebarCollapsed);
+  }
 }
