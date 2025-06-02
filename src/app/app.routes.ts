@@ -11,7 +11,7 @@ export const routes: Routes = [
   { path: 'beranda', component: Beranda },
   { path: 'daftar buku', component: DaftarBuku },
   { path: 'favorit', component: Favorit },
-  { path: 'favorit', component: Peminjaman },
-  { path: 'favorit', component: Pengembalian },
+  { path: 'peminjaman', component: Peminjaman },
+  { path: 'pengembalian', component: Pengembalian },
   { path: 'informasi', component: Informasi },
 ];
